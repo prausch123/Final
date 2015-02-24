@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    <h:head>
+        <title>The Game Store :: Admin :: View Orders</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="mainContainer">
+                <div class="titleHeader">The Game Store</div>
+                <div class="loginHeader" style="text-align:right;">
+                    <c:if test="#{sec:isAuthenticated()}">
+                        <p>Logged in as: #{request.userPrincipal.name}</p><br/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="mainContainer nav">
+                <span color="red"><h:link outcome="editgames.xhtml" value="Edit Games"/> :: <h:link outcome="vieworders.xhtml" value="View Orders"/></span>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">All Orders (#{order.allOrders.size()})</div>
+                <table align='center' width='100%'>
+                    <tr style="font-weight:bold; text-decoration: underline;">
+                        <td>Order Number</td>
+                        <td>Customer</td>
+                        <td>Order Total</td>
+                        <td>Order Options</td>
+                    </tr>
+                    <c:forEach var="o" items="#{order.allOrders}">
+                        <tr>
+                            <td><h:outputText value="#{o.gameorderid}"/></td>
+                            <td><h:outputText value="#{o.user}"/></td>
+                            <td><h:outputText value="$#{o.ordertotal}"/></td>
+                            <td>
+                                <h:commandButton value="View Order" action='#{order.viewOrder(o.gameorderid)}'/>
+                                <h:commandButton value="Delete Order"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </h:form>
+    </h:body>
+</html>

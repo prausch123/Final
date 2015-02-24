@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    <h:head>
+        <title>The Game Store :: Check Out</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="mainContainer">
+                <div class="titleHeader">The Game Store</div>
+                <div class="loginHeader" style="text-align:right;">
+                    <c:if test="#{sec:isAuthenticated()}">
+                        <p>Logged in as: #{request.userPrincipal.name}</p><br/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="mainContainer nav">
+                Home :: <h:link outcome="viewcart.xhtml" value="View Your Cart"/> :: <span style="color:red">Administration</span>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">Order Contents</div>
+                <div class="errorReporter">#{gameb.possibleError}</div>
+                <table width="100%">
+                    <c:forEach var="g" items="#{cart.cartContents}">
+                        <tr>
+                            <td width="90%" class="gameContent">
+                                <span class="gameContentHeader"><h:outputText value="#{g.name}"/></span>
+                            </td>
+                            <td width="10%">
+                                <h:outputText value="$#{g.price}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">Billing Information</div>
+                <table align='center'>
+                    <tr>
+                        <td>First Name</td>
+                        <td><h:inputText value="#{order.firstName}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><h:inputText value="#{order.lastName}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><h:inputText value="#{order.address}"/></td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td><h:inputText value="#{order.city}"/></td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td><h:inputText value="#{order.state}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Zip</td>
+                        <td><h:inputText value="#{order.zip}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Credit Card Number:</td>
+                        <td><h:inputText value="#{order.cc_num}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Credit Card Expiration Date</td>
+                        <td><h:inputText value="#{order.cc_exp}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Credit Card Security Code</td>
+                        <td><h:inputText value="#{order.cc_security}"/></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><h:commandButton value="Complete Transaction" action="#{order.processOrder()}" /></td>
+                    </tr>
+                </table>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

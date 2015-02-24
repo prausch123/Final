@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    <h:head>
+        <title>The Game Store :: Admin :: View Orders</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="mainContainer">
+                <div class="titleHeader">The Game Store</div>
+                <div class="loginHeader" style="text-align:right;">
+                    <c:if test="#{sec:isAuthenticated()}">
+                        <p>Logged in as: #{request.userPrincipal.name}</p><br/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="mainContainer nav">
+                <span color="red"><h:link outcome="editgames.xhtml" value="Edit Games"/> :: <h:link outcome="vieworders.xhtml" value="View Orders"/></span>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">View Client Information</div>
+                <table align='center' width='50%'>
+                    <tr>
+                        <td>First Name</td>
+                        <td><h:outputText value='#{order.selectedOrder.firstname}' /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td><h:outputText value='#{order.selectedOrder.lastname}' /></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><h:outputText value='#{order.selectedOrder.address}' /></td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td><h:outputText value='#{order.selectedOrder.city}' /></td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td><h:outputText value='#{order.selectedOrder.state}' /></td>
+                    </tr>
+                    <tr>
+                        <td>Zip</td>
+                        <td><h:outputText value='#{order.selectedOrder.zip}' /></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><h:outputText value='#{order.selectedOrder.user}' /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">Items Ordered (#{order.orderItemsFromID.size()})</div>
+                <table align="center" width='50%'>
+                    <tr>
+                        <td>Order Item Number</td>
+                        <td>Item Name</td>
+                        <td>Item Price</td>
+                    </tr>
+                    <c:forEach var="o" items="#{order.orderedGames}">
+                        <tr>
+                            <td><h:outputText value="#{o.gameid}"/></td>
+                            <td><h:outputText value="#{o.name}"/></td>
+                            <td><h:outputText value="$#{o.price}"/></td>
+                        </tr>
+                    </c:forEach>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style='text-align:right; font-weight:bold;'>Total:</td>
+                        <td><h:outputText value='$#{order.selectedOrder.ordertotal}'/></td>
+                    </tr>
+                </table>
+            </div>
+        </h:form>
+    </h:body>
+</html>

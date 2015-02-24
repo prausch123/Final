@@ -1,0 +1,78 @@
+body {
+    background-color:#fff;
+    margin-top: 5px;
+    
+    font-family:verdana;
+}
+
+.errorReporter {
+    
+    margin-top:5px;
+    margin-bottom:5px;
+    
+    text-align:center;
+    
+    color:red;
+    font-weight:bold;
+}
+
+.titleHeader {
+    width:80%;
+    float:left;
+    
+    font-size:60px;
+    font-weight:bold;
+    
+    color:#FF6E6E;
+    text-shadow: 3px 2px #8A0C0C;
+}
+
+.loginHeader {
+    width:20%;
+    float:right;
+    
+}
+
+.nav {
+    text-align:center;
+}
+
+
+.mainContainer {
+    width:80%;
+    height:auto;
+    background-color:#EDF2FF;
+    
+    overflow:hidden;
+    
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:10px;
+    
+    border: 1px solid black;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* future proofing */
+    -khtml-border-radius: 5px; /* for old Konqueror browsers */
+    box-shadow: 5px 5px 5px #888888;
+    
+    padding:5px;
+    
+}
+
+.mainContentHeader{
+    color:#FF6E6E;
+    font-weight:bold;
+    
+    border-bottom:2px solid #FF6E6E;
+}
+
+.gameContent{
+    vertical-align:text-top;
+    padding-left:5px;
+}
+
+.gameContentHeader{
+    font-weight:bold;
+    font-size:20px;
+}

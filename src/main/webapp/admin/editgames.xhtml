@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+    <h:head>
+        <title>The Game Store :: Admin :: Edit Games</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="mainContainer">
+                <div class="titleHeader">The Game Store</div>
+                <div class="loginHeader" style="text-align:right;">
+                    <c:if test="#{sec:isAuthenticated()}">
+                        <p>Logged in as: #{request.userPrincipal.name}</p><br/>
+                    </c:if>
+                </div>
+            </div>
+            <div class="mainContainer nav">
+                <span color="red"><h:link outcome="editgames.xhtml" value="Edit Games"/> :: <h:link outcome="vieworders.xhtml" value="View Orders"/></span>
+            </div>
+            <div class="mainContainer">
+                <div class="mainContentHeader">Edit Current Games</div>
+                <h:commandButton value="New Game" action="#{gameb.goNew()}" />
+                <hr/>
+                <table align="center" width="100%">
+                    <tr style="font-weight:bold; text-decoration:underline;">
+                        <td>Game ID</td>
+                        <td>Game Image</td>
+                        <td>Game Name</td>
+                        <td>Game Description</td>
+                        <td>Game Price</td>
+                        <td>Image URL</td>
+                        <td>Game Options</td>
+                    </tr>
+                    <c:forEach var="g" items="#{gameb.allGames}">
+                        <tr>
+                            <td><h:outputText value="#{g.gameid}"/></td>
+                            <td><h:graphicImage library="images" width="50" height="50" name="#{g.imgpath}"/></td>
+                            <td><h:outputText value="#{g.name}"/></td>
+                            <td><h:outputText value="#{g.description}"/></td>
+                            <td><h:outputText value="$#{g.price}"/></td>
+                            <td><h:outputText value="#{g.imgpath}"/></td>
+                            <td>
+                                <h:commandButton value="Edit" action="#{gameb.modifyGame(g.gameid)}"/>
+                                <h:commandButton value="Remove" action="#{gameb.preformDeletionOfGame(g.gameid)}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </h:form>
+    </h:body>
+</html>
